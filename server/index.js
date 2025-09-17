@@ -2,6 +2,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
+import { postLogin, postSignup } from "./controllers/user.js";
 
 dotenv.config(); // load .env first
 
@@ -28,7 +29,8 @@ app.get("/", (req, res) => {
     message: "Server is up and running...",
   });
 });
-
+ app.post("/signup",postSignup);
+ app.post("/login",postLogin);
 const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, () => {
