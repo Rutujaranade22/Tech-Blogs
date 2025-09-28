@@ -6,7 +6,7 @@ import { BLOG_CATEGORIES } from "./../constants";
 import { getCurrentUser } from "./../util";
 
 function NewBlog() {
-   const [content, setContent] = useState("");
+  const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState(BLOG_CATEGORIES[0]);
   const [user, setUser] = useState(null);

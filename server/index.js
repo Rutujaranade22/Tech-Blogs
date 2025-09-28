@@ -3,8 +3,14 @@ import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
 import { postLogin, postSignup } from "./controllers/user.js";
-
-dotenv.config(); // load .env first
+import {
+  postBlogs,
+  getBlogs,
+  getBlogForSlug,
+  patchPublishBlog,
+  putBlogs,
+} from "./controllers/blog.js";
+dotenv.config();
 
 const app = express();
 
@@ -29,8 +35,13 @@ app.get("/", (req, res) => {
     message: "Server is up and running...",
   });
 });
- app.post("/signup",postSignup);
- app.post("/login",postLogin);
+app.post("/signup", postSignup);
+app.post("/login", postLogin);
+app.get("/blogs", getBlogs);
+app.post("/blogs", postBlogs);
+app.get("/blogs/:slug", getBlogForSlug);
+app.patch("/blogs/:slug/publish", patchPublishBlog);
+app.put("/blogs/:slug", putBlogs);
 const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, () => {
