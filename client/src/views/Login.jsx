@@ -9,14 +9,24 @@ function Login() {
   });
 
   const loginUser = async () => {
-    const response = await axios.post(
-      `${import.meta.env.VITE_API_URL}/login`,
-      user
-    );
-    if (response?.data?.success) {
-      localStorage.setItem("loggedInUser", JSON.stringify(response.data.user));
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/login`,
+        user
+      );
 
-      window.location.href = "/";
+      if (response?.data?.success) {
+        // ✅ Save user + token in localStorage
+        localStorage.setItem("loggedInUser", JSON.stringify(response.data.user));
+        localStorage.setItem("token", response.data.token);
+
+        // ✅ Redirect to homepage
+        window.location.href = "/";
+      } else {
+        alert(response?.data?.message || "Login failed");
+      }
+    } catch (error) {
+      alert(error?.response?.data?.message || "Login failed");
     }
   };
 
@@ -48,7 +58,7 @@ function Login() {
         </button>
 
         <p className="mt-6">
-          Don't have an account?{" "}
+          Don’t have an account?{" "}
           <Link to="/signup" className="text-blue-500 underline">
             Signup
           </Link>

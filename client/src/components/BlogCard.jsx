@@ -1,58 +1,28 @@
 import { Link } from "react-router";
 
-function BlogCard({
-  title,
-  author,
-  publishedAt,
-  updatedAt,
-  status,
-  category,
-  slug,
-}) {
+function BlogCard({ title, author, category, slug, viewCount, publishedAt }) {
   return (
-    <div className="border p-4 my-4 rounded-md relative">
-      <h2>
-        {status != "published" ? (
-          <span className="bg-yellow-200 text-yellow-700 text-xs font-semibold px-2 py-1 rounded-md mr-4">
-            {status}
-          </span>
-        ) : null}
-
-        {title}
-      </h2>
-      <div className="flex items-center gap-4 my-2">
-        <div className="flex items-center justify-center font-semibold w-[50px] h-[50px] bg-orange-300 text-center text-white rounded-full text-3xl">
-          {author.name.substring(0, 1)}
-        </div>
-
-        <div>
-          <p>{author.name}</p>
-          <p>{author.email}</p>
-        </div>
-      </div>
-      <p className="text-sm mt-2">
-        Published On: {new Date(publishedAt || updatedAt).toLocaleString()}
-      </p>
-
-      <span className="absolute top-2 right-2 bg-gray-200 text-gray-700 text-xs font-semibold px-2 py-1 rounded-md">
+    <div className="bg-white shadow-md rounded-lg p-5 hover:shadow-xl transition">
+      <h3 className="text-xl font-semibold text-gray-800 mb-2">{title}</h3>
+      <span className="inline-block bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm mb-3">
         {category}
       </span>
-
-      {status == "published" ? (
-        <Link
-          className="bg-gray-700 text-white px-6 py-2 rounded-md absolute bottom-4 right-4 cursor-pointer"
-          to={`/blog/${slug}`}
-        >
-          Read More
-        </Link>
-      ) : (
-        <Link
-          className="bg-gray-700 text-white px-6 py-2 rounded-md absolute bottom-4 right-4 cursor-pointer"
+      <p className="text-gray-500 text-sm mb-4">
+        {author?.name} • {new Date(publishedAt).toLocaleDateString()}
+      </p>
+      <p className="text-gray-400 text-sm mb-4">👁️ {viewCount} views</p>
+      <Link
+        to={`/blog/${slug}`}
+        className="text-blue-600 font-medium hover:underline"
+      >
+        Read More →
+      </Link>
+       <Link
           to={`/edit/${slug}`}
+          className="text-orange-500 font-medium hover:underline"
         >
-          Edit Blog
+          ✏️ Edit
         </Link>
-      )}
     </div>
   );
 }

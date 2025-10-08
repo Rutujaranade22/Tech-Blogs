@@ -1,73 +1,107 @@
+import MarkdownEditor from "@uiw/react-markdown-editor";
 import axios from "axios";
-import { useState } from "react";
-import { Link } from "react-router";
+import { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
+import Navbar from "../components/Navbar";
+import { BLOG_CATEGORIES } from "./../constants";
+import { getCurrentUser } from "./../util";
 
-function Signup() {
-  const [user, setUser] = useState({ name: "", email: "", password: "" });
+function NewBlog() {
+  const [content, setContent] = useState("");
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState(BLOG_CATEGORIES[0]);
+  const [user, setUser] = useState(null);
 
-  const signupUser = async () => {
-    // Show what data is being sent
-    console.log("Sending user:", user);
+  useEffect(() => {
+    document.documentElement.setAttribute("data-color-mode", "light");
 
-    if (!user.name || !user.email || !user.password) {
-      alert("All fields are required");
+    const loggedInUser = getCurrentUser();
+    const token = localStorage.getItem("token");
+
+    if (!loggedInUser || !token) {
+      // Redirect if not logged in
+      toast.error("Please log in first");
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 1500);
       return;
     }
 
+    setUser(loggedInUser);
+  }, []);
+
+  const saveBlog = async () => {
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/signup`,
-        user
+        `${import.meta.env.VITE_API_URL}/blogs`,
+        {
+          title,
+          content,
+          category,
+          author: user?._id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
-      console.log(response.data);
-      alert(response.data.message); // show success message
+
+      if (response?.data?.success) {
+        toast.success("Blog saved successfully");
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 2000);
+      } else {
+        toast.error(response?.data?.message || "Failed to save blog");
+      }
     } catch (err) {
-      alert(err.response?.data?.message || "Signup failed");
-      console.error("Signup error:", err.response?.data || err.message);
+      toast.error(err?.response?.data?.message || "Error creating blog");
     }
   };
 
   return (
-    <div>
-      <h1 className="text-center text-4xl my-4">Signup</h1>
-      <div className="max-w-[400px] mx-auto border-1 border-gray-500 py-10 px-14 rounded-md">
-        <input
-          type="text"
-          placeholder="Name"
-          className="border p-2 rounded w-full mb-4"
-          value={user.name}
-          onChange={(e) => setUser({ ...user, name: e.target.value })}
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          className="border p-2 rounded w-full mb-4"
-          value={user.email}
-          onChange={(e) => setUser({ ...user, email: e.target.value })}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          className="border p-2 rounded w-full mb-4"
-          value={user.password}
-          onChange={(e) => setUser({ ...user, password: e.target.value })}
-        />
-        <button
-          className="bg-gray-700 text-white px-6 py-2 rounded-md"
-          type="button"
-          onClick={signupUser}
-        >
-          Signup
-        </button>
-        <p className="mt-6">
-          Already have an account?{" "}
-          <Link to="/login" className="text-blue-500 underline">
-            Login
-          </Link>
-        </p>
-      </div>
+    <div className="container mx-auto p-4">
+      <Navbar />
+      <h1 className="text-2xl font-bold mb-4">New Blog</h1>
+
+      <input
+        type="text"
+        placeholder="Blog Title"
+        className="border p-2 w-full my-4"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
+
+      <select
+        value={category}
+        onChange={(e) => setCategory(e.target.value)}
+        className="border p-2 my-4"
+      >
+        {BLOG_CATEGORIES.map((cate) => (
+          <option key={cate} value={cate}>
+            {cate}
+          </option>
+        ))}
+      </select>
+
+      <MarkdownEditor
+        value={content}
+        onChange={(value) => setContent(value)}
+        height="500px"
+      />
+
+      <button
+        className="bg-blue-500 text-white px-4 py-2 mt-4 rounded cursor-pointer"
+        type="button"
+        onClick={saveBlog}
+      >
+        Save Blog
+      </button>
+
+      <Toaster />
     </div>
   );
 }
 
-export default Signup;
+export default NewBlog;
