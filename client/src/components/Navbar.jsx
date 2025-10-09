@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { getCurrentUser } from "./../util";
-import { Menu, X } from "lucide-react"; 
+import { Menu, X } from "lucide-react";
 
 function Navbar() {
   const [user, setUser] = useState(null);
@@ -18,19 +18,19 @@ function Navbar() {
   };
 
   return (
-    <nav className="bg-blue-700 text-white shadow-md">
+    <nav className="bg-gradient-to-r from-blue-900  to-blue-900 text-gray-100 shadow-lg ">
       <div className="container mx-auto flex justify-between items-center p-4">
         {/* Logo / Brand */}
         <Link
           to="/"
-          className="text-2xl font-bold tracking-wide hover:text-blue-200 transition"
+          className="text-2xl font-bold tracking-wide text-white hover:text-blue-300 transition"
         >
           🧠 TechBlogs
         </Link>
 
-        {/* Hamburger Menu (Mobile only) */}
+        {/* Hamburger Menu (Mobile) */}
         <button
-          className="sm:hidden focus:outline-none"
+          className="sm:hidden focus:outline-none text-blue-200"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           {isMenuOpen ? <X size={26} /> : <Menu size={26} />}
@@ -38,26 +38,30 @@ function Navbar() {
 
         {/* Navigation Links (Desktop) */}
         <div className="hidden sm:flex items-center gap-6">
-          <Link to="/" className="hover:text-blue-200 font-medium">
+          <Link to="/" className="hover:text-blue-300 font-medium transition">
             Home
           </Link>
-          <Link to="/new" className="hover:text-blue-200 font-medium">
+          <Link to="/new" className="hover:text-blue-300 font-medium transition">
             New Blog
           </Link>
-          <Link to="/readblogs" className="hover:text-blue-200 font-medium">
+          <Link
+            to="/readblogs"
+            className="hover:text-blue-300 font-medium transition"
+          >
             My Blogs
           </Link>
-          
         </div>
 
         {/* Auth Buttons (Desktop) */}
         <div className="hidden sm:flex items-center gap-3">
           {user ? (
             <>
-              <span className="text-blue-100">👋 {user.name}</span>
+              <span className="text-blue-200 font-medium">
+                👋 {user.name}
+              </span>
               <button
                 onClick={handleLogout}
-                className="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-md text-sm"
+                className="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-md text-sm text-white transition"
               >
                 Logout
               </button>
@@ -66,13 +70,13 @@ function Navbar() {
             <>
               <Link
                 to="/login"
-                className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-md text-sm"
+                className="bg-blue-900 hover:bg-blue-600 px-4 py-2 rounded-md text-sm transition"
               >
                 Login
               </Link>
               <Link
                 to="/signup"
-                className="bg-green-500 hover:bg-green-600 px-4 py-2 rounded-md text-sm"
+                className="bg-blue-900 hover:bg-blue-600 px-4 py-2 rounded-md text-sm transition"
               >
                 Signup
               </Link>
@@ -83,7 +87,7 @@ function Navbar() {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="sm:hidden bg-blue-800 text-white p-4 flex flex-col gap-4">
+        <div className="sm:hidden bg-gradient-to-b from-blue-950 to-blue-900 text-white p-4 flex flex-col gap-4 shadow-inner">
           <Link
             to="/"
             className="hover:text-blue-300 transition"
@@ -105,8 +109,7 @@ function Navbar() {
           >
             My Blogs
           </Link>
-          
-          {/* Auth Buttons (Mobile) */}
+
           {user ? (
             <button
               onClick={() => {
@@ -122,14 +125,14 @@ function Navbar() {
               <Link
                 to="/login"
                 onClick={() => setIsMenuOpen(false)}
-                className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-md text-sm text-center"
+                className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-md text-sm text-center"
               >
                 Login
               </Link>
               <Link
                 to="/signup"
                 onClick={() => setIsMenuOpen(false)}
-                className="bg-green-500 hover:bg-green-600 px-4 py-2 rounded-md text-sm text-center"
+                className="bg-green-600 hover:bg-green-700 px-4 py-2 rounded-md text-sm text-center"
               >
                 Signup
               </Link>

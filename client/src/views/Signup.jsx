@@ -1,107 +1,121 @@
-import MarkdownEditor from "@uiw/react-markdown-editor";
 import axios from "axios";
-import { useEffect, useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
-import Navbar from "../components/Navbar";
-import { BLOG_CATEGORIES } from "./../constants";
-import { getCurrentUser } from "./../util";
+import { useState } from "react";
+import { Link } from "react-router";
+import Navbar from "../components/Navbar"; // ✅ Navbar imported
 
-function NewBlog() {
-  const [content, setContent] = useState("");
-  const [title, setTitle] = useState("");
-  const [category, setCategory] = useState(BLOG_CATEGORIES[0]);
-  const [user, setUser] = useState(null);
+function Signup() {
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    document.documentElement.setAttribute("data-color-mode", "light");
-
-    const loggedInUser = getCurrentUser();
-    const token = localStorage.getItem("token");
-
-    if (!loggedInUser || !token) {
-      // Redirect if not logged in
-      toast.error("Please log in first");
-      setTimeout(() => {
-        window.location.href = "/login";
-      }, 1500);
+  const registerUser = async () => {
+    if (!user.name || !user.email || !user.password) {
+      alert("Please fill in all fields");
       return;
     }
 
-    setUser(loggedInUser);
-  }, []);
-
-  const saveBlog = async () => {
     try {
+      setLoading(true);
       const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/blogs`,
-        {
-          title,
-          content,
-          category,
-          author: user?._id,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
+        `${import.meta.env.VITE_API_URL}/signup`,
+        user
       );
 
       if (response?.data?.success) {
-        toast.success("Blog saved successfully");
-        setTimeout(() => {
-          window.location.href = "/";
-        }, 2000);
+        alert("Signup successful! Please login now.");
+        window.location.href = "/login";
       } else {
-        toast.error(response?.data?.message || "Failed to save blog");
+        alert(response?.data?.message || "Signup failed");
       }
-    } catch (err) {
-      toast.error(err?.response?.data?.message || "Error creating blog");
+    } catch (error) {
+      alert(error?.response?.data?.message || "Signup failed");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-purple-900 via-indigo-800 to-blue-900 text-white">
+      {/* ✅ Navbar on top */}
       <Navbar />
-      <h1 className="text-2xl font-bold mb-4">New Blog</h1>
 
-      <input
-        type="text"
-        placeholder="Blog Title"
-        className="border p-2 w-full my-4"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
+      {/* Signup form center */}
+      <div className="flex-grow flex items-center justify-center px-4">
+        <div className="w-full max-w-md p-8 rounded-2xl bg-white/10 backdrop-blur-md shadow-2xl border border-white/20">
+          {/* 🧠 Heading */}
+          <h1 className="text-3xl font-bold text-center mb-6 text-white">
+            Create Your Account
+          </h1>
 
-      <select
-        value={category}
-        onChange={(e) => setCategory(e.target.value)}
-        className="border p-2 my-4"
-      >
-        {BLOG_CATEGORIES.map((cate) => (
-          <option key={cate} value={cate}>
-            {cate}
-          </option>
-        ))}
-      </select>
+          {/* Name */}
+          <div className="mb-4">
+            <label className="block mb-2 text-sm font-medium text-gray-200">
+              Full Name
+            </label>
+            <input
+              type="text"
+              placeholder="Enter your name"
+              className="w-full p-3 rounded-lg bg-white/20 text-white placeholder-gray-300 border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:bg-white/30 transition"
+              value={user.name}
+              onChange={(e) => setUser({ ...user, name: e.target.value })}
+            />
+          </div>
 
-      <MarkdownEditor
-        value={content}
-        onChange={(value) => setContent(value)}
-        height="500px"
-      />
+          {/* Email */}
+          <div className="mb-4">
+            <label className="block mb-2 text-sm font-medium text-gray-200">
+              Email
+            </label>
+            <input
+              type="email"
+              placeholder="Enter your email"
+              className="w-full p-3 rounded-lg bg-white/20 text-white placeholder-gray-300 border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:bg-white/30 transition"
+              value={user.email}
+              onChange={(e) => setUser({ ...user, email: e.target.value })}
+            />
+          </div>
 
-      <button
-        className="bg-blue-500 text-white px-4 py-2 mt-4 rounded cursor-pointer"
-        type="button"
-        onClick={saveBlog}
-      >
-        Save Blog
-      </button>
+          {/* Password */}
+          <div className="mb-6">
+            <label className="block mb-2 text-sm font-medium text-gray-200">
+              Password
+            </label>
+            <input
+              type="password"
+              placeholder="Create a password"
+              className="w-full p-3 rounded-lg bg-white/20 text-white placeholder-gray-300 border border-white/30 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:bg-white/30 transition"
+              value={user.password}
+              onChange={(e) => setUser({ ...user, password: e.target.value })}
+            />
+          </div>
 
-      <Toaster />
+          {/* Signup Button */}
+          <button
+            className="w-full py-3 rounded-lg bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white font-semibold text-lg shadow-lg transition-transform transform hover:scale-105 disabled:opacity-50"
+            onClick={registerUser}
+            type="button"
+            disabled={loading}
+          >
+            {loading ? "Signing up..." : "Sign Up"}
+          </button>
+
+          {/* Login Link */}
+          <p className="mt-6 text-center text-gray-300">
+            Already have an account?{" "}
+            <Link
+              to="/login"
+              className="text-blue-300 hover:text-blue-400 underline font-medium"
+            >
+              Login here
+            </Link>
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
 
-export default NewBlog;
+export default Signup;

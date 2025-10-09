@@ -14,6 +14,7 @@ function MyBlogs() {
     const currentUser = getCurrentUser();
     setUser(currentUser);
     if (currentUser) fetchMyBlogs(currentUser._id);
+    else setLoading(false);
   }, []);
 
   const fetchMyBlogs = async (userId) => {
@@ -34,13 +35,23 @@ function MyBlogs() {
     }
   };
 
+  // 🧭 If not logged in → show message (centered, but Navbar stays on top)
   if (!user) {
     return (
-      <div className="min-h-screen bg-gray-50 flex flex-col justify-center items-center">
+      <div className="min-h-screen flex flex-col bg-gray-50">
         <Navbar />
-        <h2 className="text-2xl font-semibold text-gray-800 mt-10">
-          Please <Link to="/login" className="text-blue-600 underline">Login</Link> to view your blogs.
-        </h2>
+        <div className="flex-grow flex flex-col justify-center items-center text-center">
+          <h2 className="text-2xl font-semibold text-gray-800 mb-3">
+            Please{" "}
+            <Link to="/login" className="text-blue-600 underline">
+              Login
+            </Link>{" "}
+            to view your blogs.
+          </h2>
+          <p className="text-gray-500">
+            Once logged in, you’ll see all your created blogs here.
+          </p>
+        </div>
       </div>
     );
   }
@@ -55,7 +66,8 @@ function MyBlogs() {
             📝 {user.name}'s Blogs
           </h1>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Manage and explore all the blogs you’ve created. You can edit or read them in detail anytime.
+            Manage and explore all the blogs you’ve created. You can edit or
+            read them in detail anytime.
           </p>
         </div>
 

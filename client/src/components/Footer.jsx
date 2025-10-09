@@ -15,7 +15,7 @@ function Footer() {
 
           <div className="flex justify-center md:justify-start gap-4 mt-4">
             <a
-              href="https://github.com/"
+              href="https://github.com/Rutujaranade22"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-white hover:scale-110 transition"
@@ -23,7 +23,7 @@ function Footer() {
               <Github size={20} />
             </a>
             <a
-              href="https://linkedin.com/"
+              href="https://www.linkedin.com/in/rutuja-ranade/"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-white hover:scale-110 transition"
@@ -39,7 +39,7 @@ function Footer() {
               <Youtube size={20} />
             </a>
             <a
-              href="mailto:your@email.com"
+              href="mailto:ranaderutuja7@gmail.com"
               className="hover:text-white hover:scale-110 transition"
             >
               <Mail size={20} />
@@ -64,10 +64,10 @@ function Footer() {
           <h3 className="text-lg font-semibold text-white mb-3">Contact Us</h3>
           <ul className="space-y-2 text-blue-300 text-sm">
             <li className="flex justify-center md:justify-start items-center gap-2">
-              <MapPin size={16} /> Pune, Maharashtra, India
+              <MapPin size={16} /> Nashik, Maharashtra, India
             </li>
             <li className="flex justify-center md:justify-start items-center gap-2">
-              <Phone size={16} /> +91-9876543210
+              <Phone size={16} /> +91-9822467751
             </li>
             <li className="flex justify-center md:justify-start items-center gap-2">
               <Mail size={16} /> contact@techblogs.com

@@ -49,7 +49,7 @@ function AllBlogs() {
           <div className="mt-6">
             <Link
               to="/new"
-              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md shadow-md transition"
+              className="bg-blue-900 hover:bg-blue-700 text-white px-6 py-3 rounded-md shadow-md transition"
             >
               ✍️ Write a Blog
             </Link>
