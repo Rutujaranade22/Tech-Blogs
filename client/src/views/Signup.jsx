@@ -1,8 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router";
-import Navbar from "../components/Navbar"; // ✅ Navbar imported
-
+import Navbar from "../components/Navbar";  
 function Signup() {
   const [user, setUser] = useState({
     name: "",
@@ -39,19 +38,15 @@ function Signup() {
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-purple-900 via-indigo-800 to-blue-900 text-white">
-      {/* ✅ Navbar on top */}
-      <Navbar />
+       <Navbar />
 
-      {/* Signup form center */}
-      <div className="flex-grow flex items-center justify-center px-4">
+       <div className="flex-grow flex items-center justify-center px-4">
         <div className="w-full max-w-md p-8 rounded-2xl bg-white/10 backdrop-blur-md shadow-2xl border border-white/20">
-          {/* 🧠 Heading */}
-          <h1 className="text-3xl font-bold text-center mb-6 text-white">
+           <h1 className="text-3xl font-bold text-center mb-6 text-white">
             Create Your Account
           </h1>
 
-          {/* Name */}
-          <div className="mb-4">
+           <div className="mb-4">
             <label className="block mb-2 text-sm font-medium text-gray-200">
               Full Name
             </label>
@@ -64,8 +59,7 @@ function Signup() {
             />
           </div>
 
-          {/* Email */}
-          <div className="mb-4">
+           <div className="mb-4">
             <label className="block mb-2 text-sm font-medium text-gray-200">
               Email
             </label>
@@ -78,8 +72,7 @@ function Signup() {
             />
           </div>
 
-          {/* Password */}
-          <div className="mb-6">
+           <div className="mb-6">
             <label className="block mb-2 text-sm font-medium text-gray-200">
               Password
             </label>
@@ -92,8 +85,7 @@ function Signup() {
             />
           </div>
 
-          {/* Signup Button */}
-          <button
+           <button
             className="w-full py-3 rounded-lg bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white font-semibold text-lg shadow-lg transition-transform transform hover:scale-105 disabled:opacity-50"
             onClick={registerUser}
             type="button"
@@ -102,8 +94,7 @@ function Signup() {
             {loading ? "Signing up..." : "Sign Up"}
           </button>
 
-          {/* Login Link */}
-          <p className="mt-6 text-center text-gray-300">
+           <p className="mt-6 text-center text-gray-300">
             Already have an account?{" "}
             <Link
               to="/login"

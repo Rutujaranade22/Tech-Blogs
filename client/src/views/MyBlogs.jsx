@@ -35,8 +35,7 @@ function MyBlogs() {
     }
   };
 
-  // 🧭 If not logged in → show message (centered, but Navbar stays on top)
-  if (!user) {
+   if (!user) {
     return (
       <div className="min-h-screen flex flex-col bg-gray-50">
         <Navbar />
@@ -60,8 +59,7 @@ function MyBlogs() {
     <div className="min-h-screen bg-gray-50">
       <Navbar />
       <div className="container mx-auto px-4 py-10">
-        {/* Greeting */}
-        <div className="text-center mb-10">
+         <div className="text-center mb-10">
           <h1 className="text-4xl font-bold text-gray-800 mb-3">
             📝 {user.name}'s Blogs
           </h1>
@@ -71,8 +69,7 @@ function MyBlogs() {
           </p>
         </div>
 
-        {/* Blogs List */}
-        {loading ? (
+         {loading ? (
           <p className="text-center text-gray-500">Loading your blogs...</p>
         ) : blogs.length > 0 ? (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

@@ -24,7 +24,7 @@ const postBlogs = async (req, res) => {
 
     const savedBlog = await newBlog.save();
 
-    // Generate SEO-friendly slug based on title and _id
+    // Generate friendly slug based on title and _id
     savedBlog.slug = `${title.toLowerCase().replace(/ /g, "-")}-${
       savedBlog._id
     }`.replace(/[^\w-]+/g, "");
@@ -34,7 +34,7 @@ const postBlogs = async (req, res) => {
     res.status(201).json({
       success: true,
       message: "Blog created successfully",
-      data: savedBlog, // ✅ fixed this line
+      data: savedBlog,  
     });
   } catch (error) {
     console.error("❌ Error creating blog:", error.message);

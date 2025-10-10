@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router";
-import Navbar from "../components/Navbar"; // ✅ Navbar imported
+import Navbar from "../components/Navbar";  
 
 function Login() {
   const [user, setUser] = useState({
@@ -39,19 +39,15 @@ function Login() {
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-blue-900 via-indigo-800 to-purple-900 text-white">
-      {/* ✅ Navbar on top */}
-      <Navbar />
+       <Navbar />
 
-      {/* Centered login form */}
-      <div className="flex-grow flex items-center justify-center px-4">
+       <div className="flex-grow flex items-center justify-center px-4">
         <div className="w-full max-w-md p-8 rounded-2xl bg-white/10 backdrop-blur-md shadow-2xl border border-white/20">
-          {/* 🧠 Heading without icon */}
-          <h1 className="text-3xl font-bold text-center mb-6 text-white">
+           <h1 className="text-3xl font-bold text-center mb-6 text-white">
             Login to Your Account
           </h1>
 
-          {/* Email */}
-          <div className="mb-4">
+           <div className="mb-4">
             <label className="block mb-2 text-sm font-medium text-gray-200">
               Email
             </label>
@@ -64,8 +60,7 @@ function Login() {
             />
           </div>
 
-          {/* Password */}
-          <div className="mb-6">
+           <div className="mb-6">
             <label className="block mb-2 text-sm font-medium text-gray-200">
               Password
             </label>
@@ -78,8 +73,7 @@ function Login() {
             />
           </div>
 
-          {/* Button */}
-          <button
+           <button
             className="w-full py-3 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold text-lg shadow-lg transition-transform transform hover:scale-105 disabled:opacity-50"
             onClick={loginUser}
             type="button"
@@ -88,8 +82,7 @@ function Login() {
             {loading ? "Logging in..." : "Login"}
           </button>
 
-          {/* Signup Link */}
-          <p className="mt-6 text-center text-gray-300">
+           <p className="mt-6 text-center text-gray-300">
             Don’t have an account?{" "}
             <Link
               to="/signup"

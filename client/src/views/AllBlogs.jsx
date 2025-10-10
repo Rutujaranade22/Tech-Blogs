@@ -45,8 +45,7 @@ function AllBlogs() {
             with the world.
           </p>
 
-          {/* CTA Button */}
-          <div className="mt-6">
+           <div className="mt-6">
             <Link
               to="/new"
               className="bg-blue-900 hover:bg-blue-700 text-white px-6 py-3 rounded-md shadow-md transition"
@@ -81,7 +80,7 @@ function AllBlogs() {
           </div>
         )}
 
-        {/* Info / Help Section */}
+        {/* Info*/}
         <div className="mt-16 text-center bg-white p-8 rounded-xl shadow-md">
           <h2 className="text-2xl font-semibold text-gray-800 mb-4">
             🧠 How to Write a Great Blog

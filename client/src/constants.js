@@ -17,8 +17,7 @@ const BLOG_CATEGORIES = [
   "Culture",
   "Fashion",
   "Photography",
-  "DIY",
-  "Parenting",
+   "Parenting",
   "Other",
 ];
 

@@ -21,11 +21,9 @@ const seedData = async () => {
     await mongoose.connect(MONGO_URL);
     console.log("✅ Connected to MongoDB");
 
-    // Delete old blogs
-    await Blog.deleteMany({});
+     await Blog.deleteMany({});
 
-    // Create sample author
-    let user = await User.findOne();
+     let user = await User.findOne();
     if (!user) {
       user = await User.create({
         name: "Admin User",
@@ -34,8 +32,7 @@ const seedData = async () => {
       });
       console.log("👤 Default user created:", user.email);
     }
-   // Sample blogs with details
-    const blogs = [
+     const blogs = [
       {
         title: "Exploring React Hooks",
         category: "React",

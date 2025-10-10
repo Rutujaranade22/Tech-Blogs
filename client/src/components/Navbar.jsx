@@ -20,8 +20,7 @@ function Navbar() {
   return (
     <nav className="bg-gradient-to-r from-blue-900  to-blue-900 text-gray-100 shadow-lg ">
       <div className="container mx-auto flex justify-between items-center p-4">
-        {/* Logo / Brand */}
-        <Link
+         <Link
           to="/"
           className="text-2xl font-bold tracking-wide text-white hover:text-blue-300 transition"
         >

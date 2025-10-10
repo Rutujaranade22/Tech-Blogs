@@ -21,7 +21,7 @@ function EditBlog() {
     fetchBlogDetails();
   }, []);
 
-  // 🧩 Fetch existing blog data
+  //  Fetch existing blog data
   const fetchBlogDetails = async () => {
     try {
       const response = await axios.get(
@@ -37,7 +37,7 @@ function EditBlog() {
     }
   };
 
-  // 💾 Update blog
+  // Update blog
   const updateBlog = async () => {
     if (!title || !content) {
       toast.error("Please fill in all fields");
@@ -58,7 +58,7 @@ function EditBlog() {
       if (response.data.success) {
         toast.success("Blog updated successfully 🎉");
         setTimeout(() => {
-          navigate(`/blog/${slug}`); // redirect to the updated blog
+          navigate(`/blog/${slug}`);  
         }, 1000);
       }
     } catch (err) {

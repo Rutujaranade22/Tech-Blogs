@@ -20,7 +20,7 @@ function NewBlog() {
 
     const currentUser = getCurrentUser();
     if (!currentUser) {
-      setShowLoginPopup(true); // ✅ show popup instead of redirect
+      setShowLoginPopup(true);  
     } else {
       setUser(currentUser);
     }
@@ -62,8 +62,7 @@ function NewBlog() {
     <div className="min-h-screen bg-gray-50">
       <Navbar />
       <div className="container mx-auto px-4 py-10 relative">
-        {/* 🧠 Popup Modal */}
-        {showLoginPopup && (
+         {showLoginPopup && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
             <div className="bg-white rounded-2xl shadow-2xl p-8 text-center w-[90%] sm:w-[420px]">
               <h2 className="text-2xl font-bold mb-3 text-gray-800">

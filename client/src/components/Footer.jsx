@@ -4,8 +4,7 @@ function Footer() {
   return (
     <footer className="bg-gradient-to-r from-blue-900 via-blue-950 to-blue-900 text-gray-200 pt-10">
       <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
-        {/* 1️⃣ Brand Info - Left */}
-        <div>
+         <div>
           <h2 className="text-2xl font-bold text-white mb-3">🧠 TechBlogs</h2>
           <p className="text-blue-200 text-sm leading-relaxed">
             A platform for developers to share, learn, and grow together.
@@ -47,8 +46,7 @@ function Footer() {
           </div>
         </div>
 
-        {/* 2️⃣ Quick Links - Middle */}
-        <div>
+         <div>
           <h3 className="text-lg font-semibold text-white mb-3">Quick Links</h3>
           <ul className="space-y-2 text-blue-300 text-sm">
             <li><a href="/" className="hover:text-white">Home</a></li>
@@ -59,8 +57,7 @@ function Footer() {
           </ul>
         </div>
 
-        {/* 3️⃣ Contact Info - Right */}
-        <div>
+         <div>
           <h3 className="text-lg font-semibold text-white mb-3">Contact Us</h3>
           <ul className="space-y-2 text-blue-300 text-sm">
             <li className="flex justify-center md:justify-start items-center gap-2">
@@ -76,8 +73,7 @@ function Footer() {
         </div>
       </div>
 
-      {/* Copyright */}
-      <div className="border-t border-blue-800 mt-8 py-4 text-center text-sm text-blue-300">
+       <div className="border-t border-blue-800 mt-8 py-4 text-center text-sm text-blue-300">
         © {new Date().getFullYear()}{" "}
         <span className="text-white font-medium">TechBlogs</span> — All Rights Reserved.
       </div>
