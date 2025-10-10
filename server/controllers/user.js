@@ -1,5 +1,4 @@
 import jwt from "jsonwebtoken";
-import md5 from "md5";
 import User from "./../models/User.js";
 
 const postSignup = async (req, res) => {
@@ -12,30 +11,29 @@ const postSignup = async (req, res) => {
     });
   }
 
+  // Basic validation (simple, user-friendly)
   const emailValidationRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const nameValidationRegex = /^[a-zA-Z ]+$/;
-  const passwordValidationRegex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
-  if (nameValidationRegex.test(name) === false) {
+  if (!nameValidationRegex.test(name)) {
     return res.status(400).json({
       success: false,
       message: "Name should contain only alphabets and spaces",
     });
   }
 
-  if (emailValidationRegex.test(email) == false) {
+  if (!emailValidationRegex.test(email)) {
     return res.status(400).json({
       success: false,
       message: "Email is not valid",
     });
   }
 
-  if (passwordValidationRegex.test(password) === false) {
+  // ⚠️ Removed strong password regex for free choice
+  if (password.length < 3) {
     return res.status(400).json({
       success: false,
-      message:
-        "Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character",
+      message: "Password must be at least 3 characters long",
     });
   }
 
@@ -47,8 +45,8 @@ const postSignup = async (req, res) => {
     });
   }
 
-  const newUser = new User({ name, email, password: md5(password) });
-
+  // ✅ Store password directly (plain text)
+  const newUser = new User({ name, email, password });
   const savedUser = await newUser.save();
 
   res.json({
@@ -68,12 +66,21 @@ const postLogin = async (req, res) => {
     });
   }
 
+  // ✅ Compare plain password
   const existingUser = await User.findOne({
     email,
-    password: md5(password),
+    password,
   }).select("_id name email");
 
   if (existingUser) {
+    // ✅ Ensure JWT secret is present
+    if (!process.env.JWT_SECRET) {
+      return res.status(500).json({
+        success: false,
+        message: "JWT_SECRET not set in environment variables",
+      });
+    }
+
     const token = jwt.sign(
       {
         id: existingUser._id,
